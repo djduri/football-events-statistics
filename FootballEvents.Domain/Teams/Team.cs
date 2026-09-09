@@ -1,13 +1,12 @@
 ﻿using FootballEvents.Domain.Base;
 using FootballEvents.Domain.Extensions;
 using FootballEvents.Domain.Messages;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace FootballEvents.Domain.Teams;
-public sealed class Team
+public sealed class Team : Entity
 {
-    public long Id { get; private init; }
     public string Name { get; private set; }
+    public string NormalizedName { get; private set; }
     public TeamStatistics Statistics { get; private set; }
 
     public void ApplyMatchResult(int goalsScored, int goalsConceded)
@@ -22,12 +21,14 @@ public sealed class Team
             throw DomainException.FromErrorCode(ErrorCodes.Team.InvalidName);
 
         Name = name;
+        NormalizedName = name.ToNormalizedKey();
         return this;
     }
 
     internal Team()
     {
         Name = string.Empty;
+        NormalizedName = string.Empty;
         Statistics = new TeamStatistics();
     }
 

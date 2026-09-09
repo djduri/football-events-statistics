@@ -12,10 +12,12 @@ internal class TeamConfiguration : IEntityTypeConfiguration<Team>
 
         builder.HasKey(x => x.Id);
 
-        builder.HasIndex(x => x.Name).IsUnique();     
+        builder.HasIndex(x => x.Name).IsUnique();
+        builder.HasIndex(x => x.NormalizedName).IsUnique();
 
         builder.Property(x => x.Name).HasMaxLength(255);
-       
+        builder.Property(x => x.NormalizedName).HasMaxLength(255);
+
         builder.HasOne(x => x.Statistics)
                .WithOne(x => x.Team)
                .HasForeignKey<TeamStatistics>(x => x.TeamId) 

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootballEvents.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20260909144142_Init")]
+    [Migration("20260909152840_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -32,6 +32,9 @@ namespace FootballEvents.Infrastructure.Migrations
                     b.Property<long>("AwayTeamId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("HomeScore")
                         .HasColumnType("INTEGER");
 
@@ -39,6 +42,9 @@ namespace FootballEvents.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("MatchDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -56,7 +62,18 @@ namespace FootballEvents.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
@@ -64,6 +81,9 @@ namespace FootballEvents.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("NormalizedName")
                         .IsUnique();
 
                     b.ToTable("Teams", "Teams");

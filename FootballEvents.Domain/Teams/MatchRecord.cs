@@ -1,7 +1,8 @@
-﻿namespace FootballEvents.Domain.Teams;
-public sealed class MatchRecord
+﻿using FootballEvents.Domain.Base;
+
+namespace FootballEvents.Domain.Teams;
+public sealed class MatchRecord : Entity
 {
-    public long Id { get; private init; }
     public long HomeTeamId { get; private set; }
     public Team HomeTeam { get; private set; }
     public long AwayTeamId { get; private set; }
@@ -19,12 +20,15 @@ public sealed class MatchRecord
 
     public static class Factory
     {
-        public static MatchRecord Create(long homeTeamId, long awayTeamId, int homeScore, int awayScore, DateTime matchDate)
+        public static MatchRecord Create(Team homeTeam, Team awayTeam, int homeScore, int awayScore, DateTime matchDate)
         {
+            homeTeam.ApplyMatchResult(homeScore, awayScore);
+            awayTeam.ApplyMatchResult(awayScore, homeScore);
+
             return new MatchRecord()
             {
-                HomeTeamId = homeTeamId,
-                AwayTeamId = awayTeamId,
+                HomeTeam = homeTeam,
+                AwayTeam = awayTeam,
                 HomeScore = homeScore,
                 AwayScore = awayScore,
                 MatchDate = matchDate

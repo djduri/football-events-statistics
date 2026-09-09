@@ -21,7 +21,10 @@ namespace FootballEvents.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false)
+                    Name = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    NormalizedName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,7 +42,9 @@ namespace FootballEvents.Infrastructure.Migrations
                     AwayTeamId = table.Column<long>(type: "INTEGER", nullable: false),
                     HomeScore = table.Column<int>(type: "INTEGER", nullable: false),
                     AwayScore = table.Column<int>(type: "INTEGER", nullable: false),
-                    MatchDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    MatchDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -100,6 +105,13 @@ namespace FootballEvents.Infrastructure.Migrations
                 schema: "Teams",
                 table: "Teams",
                 column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teams_NormalizedName",
+                schema: "Teams",
+                table: "Teams",
+                column: "NormalizedName",
                 unique: true);
         }
 

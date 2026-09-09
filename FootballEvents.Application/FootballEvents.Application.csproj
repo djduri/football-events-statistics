@@ -41,7 +41,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Features\" />
 		<Folder Include="Jobs\Interfaces\" />
 		<Folder Include="Services\Interfaces\" />
 	</ItemGroup>
