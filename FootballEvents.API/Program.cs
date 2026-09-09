@@ -44,12 +44,6 @@ public class Program
 
         builder.Services.AddInfrastructureLayer(builder.Configuration);
 
-        builder.Services.AddCustomContactForm();
-
-        builder.Services.AddCustomBranding();
-
-        builder.Services.AddCustomApiUrl();
-
         builder.Services.AddCustomRateLimiter();
     }
 

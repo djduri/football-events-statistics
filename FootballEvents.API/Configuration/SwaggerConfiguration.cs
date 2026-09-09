@@ -16,7 +16,7 @@ public static class SwaggerConfiguration
 
 			config.SwaggerDoc("Cms", new OpenApiInfo
 			{
-				Title = "SWIFT TAP - CMS",
+				Title = "FOOTBALL EVENTS STATISTICS - CMS",
 				Version = $"cms_v_{assemblyVersion}"
 			});
 
