@@ -1,5 +1,6 @@
 ﻿using FootballEvents.API.Areas.Abstractions;
-using FootballEvents.Application.Features.Teams.MatchRecords.Commands.CreateMatchRecord;
+using FootballEvents.Application.Features.Teams.TeamStatistics.DTOs;
+using FootballEvents.Application.Features.Teams.TeamStatistics.Queries.GetTeamsStatisticsQuery;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +15,9 @@ public class StatisticsController : CmsController
     public StatisticsController(ISender sender) =>
         _sender = sender;
 
-    //[AllowAnonymous]
-    //[HttpPost("Result")]
-    //[SwaggerOperation(OperationId = "GetTeamsStatistics")]
-    //public async Task<ActionResult<string>> GetTeamsStatistics(CreateMatchRecordCommand query) =>
-    //    Ok(await _sender.Send(query));
+    [AllowAnonymous]
+    [HttpPost("GetTeamStatistics")]
+    [SwaggerOperation(OperationId = "GetTeamsStatistics")]
+    public async Task<ActionResult<List<TeamStatisticDto>>> GetTeamsStatistics([FromBody] GetTeamsStatisticsQuery query) =>
+        Ok(await _sender.Send(query));
 }

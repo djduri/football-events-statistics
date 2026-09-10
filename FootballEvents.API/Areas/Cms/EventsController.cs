@@ -17,6 +17,6 @@ public class EventsController: CmsController
     [AllowAnonymous]
     [HttpPost("Result")]
     [SwaggerOperation(OperationId = "PostEventResult")]
-    public async Task<ActionResult<string>> PostEventResult(CreateMatchRecordCommand command) =>
+    public async Task<ActionResult<string>> PostEventResult([FromBody] CreateMatchRecordCommand command) =>
         Ok(await _sender.Send(command));   
 }
