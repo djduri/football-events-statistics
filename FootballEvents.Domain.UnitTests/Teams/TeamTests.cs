@@ -9,10 +9,11 @@ public class TeamTests
     [Fact]
     public void Create_ShouldThrowDomainException_WhenNameIsEmpty()
     {
-        // Given / When: Próba utworzenia drużyny z pustą nazwą
+        // Given: An empty team name
+        // When: Attempting to create a team
         var act = () => Team.Factory.Create(string.Empty);
 
-        // Then: Oczekujemy błędu domeny z pełnym kodem zgodnym z konwencją
+        // Then: Expecting a domain exception
         act.Should().Throw<DomainException>()
            .Which.ExceptionCode.Should().Be("Team_InvalidName");
     }

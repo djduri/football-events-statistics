@@ -25,10 +25,10 @@ public class GetTeamsStatisticsHandlerIntegrationTests
         await dbContext.SaveChangesAsync();
 
         // Add historical match records for Bayern (following the specification sequence)
-        dbContext.MatchRecords.Add(MatchRecord.Factory.Create(bayern, barcelona, 3, 0, DateTime.UtcNow.AddDays(1)));
-        dbContext.MatchRecords.Add(MatchRecord.Factory.Create(psg, bayern, 3, 3, DateTime.UtcNow.AddDays(2)));
-        dbContext.MatchRecords.Add(MatchRecord.Factory.Create(bayern, real, 0, 1, DateTime.UtcNow.AddDays(3)));
-        dbContext.MatchRecords.Add(MatchRecord.Factory.Create(milan, bayern, 1, 3, DateTime.UtcNow.AddDays(4)));
+        dbContext.MatchRecords.Add(MatchRecord.Factory.Create(bayern, barcelona, 3, 0));
+        dbContext.MatchRecords.Add(MatchRecord.Factory.Create(psg, bayern, 3, 3));
+        dbContext.MatchRecords.Add(MatchRecord.Factory.Create(bayern, real, 0, 1));
+        dbContext.MatchRecords.Add(MatchRecord.Factory.Create(milan, bayern, 1, 3));
         await dbContext.SaveChangesAsync();
 
         var handler = new GetTeamsStatisticsHandler(dbContext, NullLogger<GetTeamsStatisticsHandler>.Instance);

@@ -8,13 +8,13 @@ public class TeamStatisticsTests
     [Fact]
     public void ApplyMatchResult_ShouldAccumulateValuesCorrectly()
     {
-        // Given: Obiekt drużyny z domyślnymi statystykami
+        // Given: A team object with default statistics
         var team = Team.Factory.Create("Bayern");
 
-        // When: Aktualizujemy wynik meczu (np. wygrana 3:1 -> 3 punkty)
+        // When: Updating the match result (e.g., 3:1 win -> 3 points)
         team.ApplyMatchResult(goalsScored: 3, goalsConceded: 1);
 
-        // Then: Weryfikacja poprawności kumulacji danych w strukturze statystyk
+        // Then: Verify correct data accumulation within the statistics structure
         team.Statistics.MatchesPlayed.Should().Be(1);
         team.Statistics.GoalScored.Should().Be(3);
         team.Statistics.GoalConceded.Should().Be(1);

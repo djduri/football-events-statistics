@@ -52,6 +52,9 @@ internal sealed class GetTeamsStatisticsHandler : IQueryHandler<GetTeamsStatisti
                     GoalsScored = 0,
                     GoalsConceded = 0
                 });
+
+                logParts.Add($"{requestedTeamName}  0 0 0 0 0");
+
                 continue;
             }
 
@@ -82,10 +85,8 @@ internal sealed class GetTeamsStatisticsHandler : IQueryHandler<GetTeamsStatisti
         }
 
         // Write the combined raw format log output to the logging provider if any records were processed
-        if (logParts.Any())
-        {
-            _logger.LogInformation("{StatsOutput}", string.Join(" ", logParts));
-        }
+        if (logParts.Any())        
+            _logger.LogInformation("{StatsOutput}", string.Join(" ", logParts));        
 
         // Return the structured DTO list for clean JSON serialization in the API response
         return resultList;

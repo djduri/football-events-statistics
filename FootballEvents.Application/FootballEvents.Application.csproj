@@ -40,9 +40,4 @@
 		</AssemblyAttribute>
 	</ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="Jobs\Interfaces\" />
-		<Folder Include="Services\Interfaces\" />
-	</ItemGroup>
-
 </Project>

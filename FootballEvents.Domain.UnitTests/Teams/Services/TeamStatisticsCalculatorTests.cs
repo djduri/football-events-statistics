@@ -10,13 +10,13 @@ public class TeamStatisticsCalculatorTests
     [Fact]
     public void Calculate_ShouldReturnZeroesWhenMatchListIsEmpty()
     {
-        // Given: Pusta lista meczów dla dowolnego ID drużyny
+        // Given: An empty match list for any team ID
         var matches = new List<MatchRecord>();
 
-        // When: Wywołanie kalkulatora
+        // When: Invoking the calculator
         var result = TeamStatisticsCalculator.Calculate(1, matches);
 
-        // Then: Wszystkie statystyki powinny być zerowe
+        // Then: All statistics should be zero
         result.MatchesPlayed.Should().Be(0);
         result.Points.Should().Be(0);
         result.GoalsScored.Should().Be(0);

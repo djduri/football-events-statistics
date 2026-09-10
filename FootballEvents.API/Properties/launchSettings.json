@@ -20,58 +20,6 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
-    },
-    "Docker_Development": {
-      "commandName": "Docker",
-      "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
-      "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "Development"
-      },
-      "sslPort": 44375,
-      "publishAllPorts": true,
-      "useSSL": true
-    },
-    "Docker_Testing": {
-      "commandName": "Docker",
-      "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
-      "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "Testing"
-      },
-      "sslPort": 44376,
-      "publishAllPorts": true,
-      "useSSL": true
-    },
-    "Docker_Stagging": {
-      "commandName": "Docker",
-      "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
-      "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "Stagging"
-      },
-      "sslPort": 44375,
-      "publishAllPorts": true,
-      "useSSL": true
-    },
-    "Docker_Production": {
-      "commandName": "Docker",
-      "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
-      "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "Production"
-      },
-      "sslPort": 44375,
-      "publishAllPorts": true,
-      "useSSL": true
-    },
-    "WSL": {
-      "commandName": "WSL2",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "Development"
-      },
-      "distributionName": ""
     }
   }
 }

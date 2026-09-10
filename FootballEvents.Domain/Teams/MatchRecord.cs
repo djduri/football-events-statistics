@@ -10,18 +10,16 @@ public sealed class MatchRecord : Entity
     public Team AwayTeam { get; private set; }
     public int HomeScore { get; private set; }
     public int AwayScore { get; private set; }
-    public DateTime MatchDate { get; private set; }
 
     internal MatchRecord()
     {
         HomeScore = 0;
         AwayScore = 0;
-        MatchDate = DateTime.UtcNow;
     }
 
     public static class Factory
     {
-        public static MatchRecord Create(Team homeTeam, Team awayTeam, int homeScore, int awayScore, DateTime matchDate)
+        public static MatchRecord Create(Team homeTeam, Team awayTeam, int homeScore, int awayScore)
         {
             if (homeTeam.NormalizedName == awayTeam.NormalizedName)            
                 throw DomainException.FromErrorCode(ErrorCodes.MatchRecord.HomeTeamAndAwayTeamCannotBeTheSame);         
@@ -31,8 +29,7 @@ public sealed class MatchRecord : Entity
                 HomeTeam = homeTeam,
                 AwayTeam = awayTeam,
                 HomeScore = homeScore,
-                AwayScore = awayScore,
-                MatchDate = matchDate
+                AwayScore = awayScore
             };
         }
     }

@@ -23,11 +23,6 @@ public static class DependencyInjection
             .AsImplementedInterfaces()
             .WithSingletonLifetime());
 
-        services.Scan(x => x.FromAssemblyOf<Assembly>()
-            .AddClasses(y => y.AssignableTo<IBackgroundJob>())
-            .AsImplementedInterfaces()
-            .WithTransientLifetime());
-
         services.AddValidatorsFromAssemblyContaining<Assembly>();
 
         services.AddMediatR(config =>

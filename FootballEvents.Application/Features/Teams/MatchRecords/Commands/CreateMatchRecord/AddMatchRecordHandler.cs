@@ -35,8 +35,7 @@ internal sealed class CreateMatchRecordHandler : ICommandHandler<CreateMatchReco
             homeTeam: homeTeam,
             awayTeam: awayTeam,
             homeScore: request.HomeScore,
-            awayScore: request.AwayScore,
-            matchDate: DateTime.UtcNow
+            awayScore: request.AwayScore
         );
         _matchRecordRepository.Add(newMatchRecord);
 

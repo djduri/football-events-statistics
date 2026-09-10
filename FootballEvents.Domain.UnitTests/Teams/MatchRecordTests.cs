@@ -4,18 +4,19 @@ using FootballEvents.Domain.Messages;
 using FootballEvents.Domain.Teams;
 
 namespace FootballEvents.Domain.UnitTests.Teams;
+
 public class MatchRecordTests
 {
     [Fact]
     public void Create_ShouldThrowDomainException_WhenHomeAndAwayTeamAreTheSame()
     {
-        // Given: Ta sama drużyna jako gospodarz i gość
+        // Given: The same team as both home and away
         var team = Team.Factory.Create("Bayern");
 
-        // When: Próba utworzenia meczu
-        var act = () => MatchRecord.Factory.Create(team, team, 2, 1, DateTime.UtcNow);
+        // When: Attempting to create a match
+        var act = () => MatchRecord.Factory.Create(team, team, 2, 1);
 
-        // Then: Oczekujemy błędu domeny
+        // Then: Expecting a domain exception
         act.Should().Throw<DomainException>()
            .Which.ExceptionCode.Should().Be("MatchRecord_HomeTeamAndAwayTeamCannotBeTheSame");
     }
