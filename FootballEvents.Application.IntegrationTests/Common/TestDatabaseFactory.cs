@@ -1,5 +1,6 @@
 ﻿using FootballEvents.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace FootballEvents.Application.IntegrationTests.Common;
 
@@ -17,6 +18,7 @@ internal static class TestDatabaseFactory
         // Configure EF Core to use an in-memory database with a unique name per call to ensure test isolation
         var options = new DbContextOptionsBuilder<DatabaseContext>()
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .ConfigureWarnings(warnings => warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning))
             .Options;
 
         // Return a new context instance with the generated options
