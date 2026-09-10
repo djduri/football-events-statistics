@@ -4,18 +4,18 @@ using FootballEvents.Domain.Teams;
 using FootballEvents.Infrastructure.Abstractions;
 using Microsoft.Extensions.Logging;
 
-namespace FootballEvents.Application.Features.Teams.MatchRecords.Commands.AddMatchRecord;
-internal sealed class AddMatchRecordHandler : ICommandHandler<AddMatchRecordCommand, string>
+namespace FootballEvents.Application.Features.Teams.MatchRecords.Commands.CreateMatchRecord;
+internal sealed class CreateMatchRecordHandler : ICommandHandler<CreateMatchRecordCommand, string>
 {
     private readonly IRepository<MatchRecord> _matchRecordRepository;
     private readonly IRepository<Team> _teamRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger<AddMatchRecordHandler> _logger;
+    private readonly ILogger<CreateMatchRecordHandler> _logger;
 
-    public AddMatchRecordHandler(IRepository<MatchRecord> matchRecordRepository,
+    public CreateMatchRecordHandler(IRepository<MatchRecord> matchRecordRepository,
                                  IRepository<Team> teamRepository,
                                  IUnitOfWork unitOfWork,
-                                 ILogger<AddMatchRecordHandler> logger)
+                                 ILogger<CreateMatchRecordHandler> logger)
     {
         _matchRecordRepository = matchRecordRepository;
         _teamRepository = teamRepository;
@@ -23,7 +23,7 @@ internal sealed class AddMatchRecordHandler : ICommandHandler<AddMatchRecordComm
         _logger = logger;
     }
 
-    public async Task<string> Handle(AddMatchRecordCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(CreateMatchRecordCommand request, CancellationToken cancellationToken)
     {
         var homeTeam = await _teamRepository.GetAsync(new FindTeamByNameSpecification(request.HomeTeam), cancellationToken);
         if (homeTeam is null)
@@ -39,8 +39,6 @@ internal sealed class AddMatchRecordHandler : ICommandHandler<AddMatchRecordComm
             _teamRepository.Add(awayTeam);
         }
 
-        //TODO: sprawdzić czy to nie te same druzyny i nie zapisać tego !!
-
         var newMatchRecord = MatchRecord.Factory.Create(
             homeTeam: homeTeam, 
             awayTeam: awayTeam, 
@@ -49,6 +47,9 @@ internal sealed class AddMatchRecordHandler : ICommandHandler<AddMatchRecordComm
             matchDate: DateTime.UtcNow // Replace with actual match date if needed
         );
         _matchRecordRepository.Add(newMatchRecord);
+
+        homeTeam.ApplyMatchResult(request.HomeScore, request.AwayScore);
+        awayTeam.ApplyMatchResult(request.AwayScore, request.HomeScore);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

@@ -1,4 +1,5 @@
 ﻿using FootballEvents.Domain.Base;
+using FootballEvents.Domain.Messages;
 
 namespace FootballEvents.Domain.Teams;
 public sealed class MatchRecord : Entity
@@ -22,9 +23,9 @@ public sealed class MatchRecord : Entity
     {
         public static MatchRecord Create(Team homeTeam, Team awayTeam, int homeScore, int awayScore, DateTime matchDate)
         {
-            homeTeam.ApplyMatchResult(homeScore, awayScore);
-            awayTeam.ApplyMatchResult(awayScore, homeScore);
-
+            if (homeTeam.NormalizedName == awayTeam.NormalizedName)            
+                throw DomainException.FromErrorCode(ErrorCodes.MatchRecord.HomeTeamAndAwayTeamCannotBeTheSame);         
+            
             return new MatchRecord()
             {
                 HomeTeam = homeTeam,

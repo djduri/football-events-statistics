@@ -9,6 +9,12 @@ public static class ErrorCodes
     { 
         InvalidName
     }
+
+    public enum MatchRecord
+    { 
+        HomeTeamAndAwayTeamCannotBeTheSame
+    }
+
     public enum Authorization
     {
         Failure,
