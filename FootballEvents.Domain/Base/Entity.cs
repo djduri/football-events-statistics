@@ -4,9 +4,6 @@ public abstract class Entity : IEquatable<Entity>, IEntity
 {
     public long Id { get; private init; }
 
-    public DateTime CreatedAt { get; set; }
-    public DateTime ModifiedAt { get; set; }
-
     protected Entity()
     {
     }
