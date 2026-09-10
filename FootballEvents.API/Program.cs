@@ -18,7 +18,6 @@ public class Program
         app.Run();
     }
 
-    // Jedna metoda odpowiedzialna za konfiguracjê wszystkich us³ug
     private static void ConfigureServices(WebApplicationBuilder builder)
     {
         builder.Host.UseCustomLogger();
@@ -31,7 +30,6 @@ public class Program
         builder.Services.AddInfrastructureLayer(builder.Configuration);
     }
 
-    // Metoda konfiguruj¹ca aplikacjê
     private static void ConfigureApp(WebApplication app)
     {
         app.UseCustomExceptionHandlers();
