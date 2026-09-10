@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using FootballEvents.Application.Features.Teams.MatchRecords.Commands.CreateMatchRecord;
 using FootballEvents.Application.IntegrationTests.Common;
+using FootballEvents.Application.Services;
 using FootballEvents.Domain.Teams;
 using FootballEvents.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +21,14 @@ public class CreateMatchRecordHandlerIntegrationTests
         var matchRecordRepository = new Repository<MatchRecord>(dbContext);
         var teamRepository = new Repository<Team>(dbContext);
         var unitOfWork = new UnitOfWork(dbContext);
+        var matchLockService = new MatchLockService();
         var logger = NullLogger<CreateMatchRecordHandler>.Instance;
 
         var handler = new CreateMatchRecordHandler(
             matchRecordRepository,
             teamRepository,
             unitOfWork,
+            matchLockService,
             logger);
 
         var command = new CreateMatchRecordCommand("Bayern", "Barcelona", 3, 0);
@@ -70,12 +73,14 @@ public class CreateMatchRecordHandlerIntegrationTests
         var matchRecordRepository = new Repository<MatchRecord>(dbContext);
         var teamRepository = new Repository<Team>(dbContext);
         var unitOfWork = new UnitOfWork(dbContext);
+        var matchLockService = new MatchLockService();
         var logger = NullLogger<CreateMatchRecordHandler>.Instance;
 
         var handler = new CreateMatchRecordHandler(
             matchRecordRepository,
             teamRepository,
             unitOfWork,
+            matchLockService,
             logger);
 
         // Match 1: Bayern vs Barcelona (3:0)

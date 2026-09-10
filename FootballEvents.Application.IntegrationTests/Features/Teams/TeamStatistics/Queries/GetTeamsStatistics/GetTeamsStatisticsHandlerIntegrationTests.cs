@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using FootballEvents.Application.Features.Teams.TeamStatistics.Queries.GetTeamsStatistics;
 using FootballEvents.Application.IntegrationTests.Common;
+using FootballEvents.Application.Services;
 using FootballEvents.Domain.Teams;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -31,7 +32,8 @@ public class GetTeamsStatisticsHandlerIntegrationTests
         dbContext.MatchRecords.Add(MatchRecord.Factory.Create(milan, bayern, 1, 3));
         await dbContext.SaveChangesAsync();
 
-        var handler = new GetTeamsStatisticsHandler(dbContext, NullLogger<GetTeamsStatisticsHandler>.Instance);
+        var matchLockService = new MatchLockService();
+        var handler = new GetTeamsStatisticsHandler(dbContext, matchLockService, NullLogger<GetTeamsStatisticsHandler>.Instance);
 
         // Request statistics in a specific order: Bayern first, then Milan
         var query = new GetTeamsStatisticsQuery(new List<string> { "Bayern", "Milan" });
@@ -69,7 +71,8 @@ public class GetTeamsStatisticsHandlerIntegrationTests
         // Given: Create an isolated in-memory database context with no teams
         using var dbContext = TestDatabaseFactory.CreateInMemoryContext();
 
-        var handler = new GetTeamsStatisticsHandler(dbContext, NullLogger<GetTeamsStatisticsHandler>.Instance);
+        var matchLockService = new MatchLockService();
+        var handler = new GetTeamsStatisticsHandler(dbContext, matchLockService, NullLogger<GetTeamsStatisticsHandler>.Instance);
 
         // Request statistics for a team that does not exist in the database
         var query = new GetTeamsStatisticsQuery(new List<string> { "NonExistentTeam" });

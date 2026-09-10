@@ -1,5 +1,6 @@
 ﻿using FootballEvents.Application.Abstractions;
 using FootballEvents.Application.Features.Teams.Teams.Specifications;
+using FootballEvents.Application.Services.Interfaces;
 using FootballEvents.Domain.Teams;
 using FootballEvents.Infrastructure.Abstractions;
 using Microsoft.Extensions.Logging;
@@ -11,21 +12,26 @@ internal sealed class CreateMatchRecordHandler : ICommandHandler<CreateMatchReco
     private readonly IRepository<MatchRecord> _matchRecordRepository;
     private readonly IRepository<Team> _teamRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IMatchLockService _matchLockService;
     private readonly ILogger<CreateMatchRecordHandler> _logger;
 
     public CreateMatchRecordHandler(IRepository<MatchRecord> matchRecordRepository,
                                     IRepository<Team> teamRepository,
                                     IUnitOfWork unitOfWork,
+                                    IMatchLockService matchLockService,
                                     ILogger<CreateMatchRecordHandler> logger)
     {
         _matchRecordRepository = matchRecordRepository;
         _teamRepository = teamRepository;
         _unitOfWork = unitOfWork;
+        _matchLockService = matchLockService;
         _logger = logger;
     }
 
     public async Task<string> Handle(CreateMatchRecordCommand request, CancellationToken cancellationToken)
     {
+        using var releaser = await _matchLockService.LockAsync(cancellationToken);
+
         // Resolve or create participating teams
         var homeTeam = await GetOrCreateTeamAsync(request.HomeTeam, cancellationToken);
         var awayTeam = await GetOrCreateTeamAsync(request.AwayTeam, cancellationToken);

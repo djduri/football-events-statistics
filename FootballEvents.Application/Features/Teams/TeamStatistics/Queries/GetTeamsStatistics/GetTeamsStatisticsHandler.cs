@@ -1,5 +1,6 @@
 ﻿using FootballEvents.Application.Abstractions;
 using FootballEvents.Application.Features.Teams.TeamStatistics.DTOs;
+using FootballEvents.Application.Services.Interfaces;
 using FootballEvents.Domain.Extensions;
 using FootballEvents.Domain.Teams.Services;
 using FootballEvents.Infrastructure.Database;
@@ -11,19 +12,25 @@ namespace FootballEvents.Application.Features.Teams.TeamStatistics.Queries.GetTe
 internal sealed class GetTeamsStatisticsHandler : IQueryHandler<GetTeamsStatisticsQuery, List<TeamStatisticDto>>
 {
     private readonly DatabaseContext _dbContext;
+    private readonly IMatchLockService _matchLockService;
     private readonly ILogger<GetTeamsStatisticsHandler> _logger;
 
     // Defines the rolling window size for recent match statistics
     private const int RecentMatchesCount = 3;
 
-    public GetTeamsStatisticsHandler(DatabaseContext dbContext, ILogger<GetTeamsStatisticsHandler> logger)
+    public GetTeamsStatisticsHandler(DatabaseContext dbContext,
+                                     IMatchLockService matchLockService,
+                                     ILogger<GetTeamsStatisticsHandler> logger)
     {
         _dbContext = dbContext;
+        _matchLockService = matchLockService;
         _logger = logger;
     }
 
     public async Task<List<TeamStatisticDto>> Handle(GetTeamsStatisticsQuery request, CancellationToken cancellationToken)
     {
+        using var releaser = await _matchLockService.LockAsync(cancellationToken);
+
         // Normalize requested team names to ensure case-insensitive matching
         var normalizedNames = request.Teams.Select(t => t.ToNormalizedKey()).ToList();
 

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FluentValidation;
+﻿using FluentValidation;
 using FootballEvents.Application.Abstractions;
 using FootballEvents.Application.Pipelines;
 using Microsoft.Extensions.Configuration;
@@ -30,11 +29,6 @@ public static class DependencyInjection
             config.RegisterServicesFromAssemblyContaining<Assembly>();
 			config.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
 		});
-
-        services.AddSingleton(provider => new MapperConfiguration(mapper =>
-        {
-            //mapper.AddProfile(new UserProfile());
-        }).CreateMapper());
 
         return services;
     }
