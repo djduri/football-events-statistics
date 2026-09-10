@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using FootballEvents.Domain.Base;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("FootballEvents.Application.IntegrationTests")]
+
 namespace FootballEvents.Infrastructure.Database;
 
 public class DatabaseContext : DbContext

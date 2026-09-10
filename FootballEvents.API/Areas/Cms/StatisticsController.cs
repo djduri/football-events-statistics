@@ -1,6 +1,6 @@
 ﻿using FootballEvents.API.Areas.Abstractions;
 using FootballEvents.Application.Features.Teams.TeamStatistics.DTOs;
-using FootballEvents.Application.Features.Teams.TeamStatistics.Queries.GetTeamsStatisticsQuery;
+using FootballEvents.Application.Features.Teams.TeamStatistics.Queries.GetTeamsStatistics;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

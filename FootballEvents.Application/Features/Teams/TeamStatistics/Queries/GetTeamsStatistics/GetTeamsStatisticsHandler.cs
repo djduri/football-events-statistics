@@ -6,7 +6,7 @@ using FootballEvents.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace FootballEvents.Application.Features.Teams.TeamStatistics.Queries.GetTeamsStatisticsQuery;
+namespace FootballEvents.Application.Features.Teams.TeamStatistics.Queries.GetTeamsStatistics;
 
 internal sealed class GetTeamsStatisticsHandler : IQueryHandler<GetTeamsStatisticsQuery, List<TeamStatisticDto>>
 {
@@ -39,7 +39,21 @@ internal sealed class GetTeamsStatisticsHandler : IQueryHandler<GetTeamsStatisti
         foreach (var requestedTeamName in request.Teams)
         {
             var team = teams.FirstOrDefault(t => t.NormalizedName == requestedTeamName.ToNormalizedKey());
-            if (team is null) continue;
+            if (team is null)
+            {
+                // If the team does not exist in the database, return default zero-filled statistics to preserve the response order
+                resultList.Add(new TeamStatisticDto
+                {
+                    Name = requestedTeamName,
+                    Form = string.Empty,
+                    AverageGoals = 0,
+                    MatchesPlayed = 0,
+                    Points = 0,
+                    GoalsScored = 0,
+                    GoalsConceded = 0
+                });
+                continue;
+            }
 
             // Fetch the recent matches for the team, ordered by ID descending to strictly follow insertion history
             var recentMatches = await _dbContext.MatchRecords

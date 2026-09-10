@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace FootballEvents.Application.Features.Teams.TeamStatistics.Queries.GetTeamsStatisticsQuery;
+namespace FootballEvents.Application.Features.Teams.TeamStatistics.Queries.GetTeamsStatistics;
 public sealed class GetTeamsStatisticsValidator : AbstractValidator<GetTeamsStatisticsQuery>
 {
     public GetTeamsStatisticsValidator()

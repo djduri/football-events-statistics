@@ -5,6 +5,8 @@ using FootballEvents.Application.Pipelines;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("FootballEvents.Application.IntegrationTests")]
+
 namespace FootballEvents.Application;
 
 public static class DependencyInjection
