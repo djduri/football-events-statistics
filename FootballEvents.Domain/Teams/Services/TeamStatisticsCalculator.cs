@@ -49,20 +49,9 @@ public static class TeamStatisticsCalculator
             goalsConceded += conceded;
 
             // Evaluate match outcome: Win (3 pts, 'W'), Draw (1 pt, 'D'), or Loss (0 pts, 'L')
-            if (scored > conceded)
-            {
-                points += 3;
-                formBuilder.Append('W');
-            }
-            else if (scored == conceded)
-            {
-                points += 1;
-                formBuilder.Append('D');
-            }
-            else
-            {
-                formBuilder.Append('L');
-            }
+            int pointsEarned = MatchRules.CalculatePoints(scored, conceded);
+            points += pointsEarned;
+            formBuilder.Append(MatchRules.CalculateOutcomeChar(scored, conceded));
         }
 
         // Calculate average total goals per match, handling division by zero safety

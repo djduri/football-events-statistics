@@ -60,10 +60,8 @@ internal sealed class CreateMatchRecordHandler : ICommandHandler<CreateMatchReco
     {
         var team = await _teamRepository.GetAsync(new FindTeamByNameSpecification(teamName), cancellationToken);
 
-        if (team is not null)
-        {
-            return team;
-        }
+        if (team is not null)        
+            return team;        
 
         team = Team.Factory.Create(teamName);
         _teamRepository.Add(team);

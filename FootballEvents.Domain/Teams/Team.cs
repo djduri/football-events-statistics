@@ -1,6 +1,7 @@
 ﻿using FootballEvents.Domain.Base;
 using FootballEvents.Domain.Extensions;
 using FootballEvents.Domain.Messages;
+using FootballEvents.Domain.Teams.Services;
 
 namespace FootballEvents.Domain.Teams;
 public sealed class Team : Entity
@@ -11,7 +12,7 @@ public sealed class Team : Entity
 
     public void ApplyMatchResult(int goalsScored, int goalsConceded)
     {
-        int points = goalsScored > goalsConceded ? 3 : (goalsScored == goalsConceded ? 1 : 0);
+        int points = MatchRules.CalculatePoints(goalsScored, goalsConceded);
         Statistics.Update(goalsScored, goalsConceded, points);
     }
 

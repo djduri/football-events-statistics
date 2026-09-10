@@ -23,5 +23,4 @@ public sealed class TeamStatistics
         GoalScored = 0;
         GoalConceded = 0;
     }
-
 }
