@@ -17,7 +17,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\FootballEvents.Domain\FootballEvents.Domain.csproj" />
-		<ProjectReference Include="..\FootballEvents.Domain\FootballEvents.Domain.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

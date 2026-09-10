@@ -17,7 +17,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\FootballEvents.Application\FootballEvents.Application.csproj" />
-		<ProjectReference Include="..\FootballEvents.Domain\FootballEvents.Domain.csproj" />
 		<ProjectReference Include="..\FootballEvents.Infrastructure\FootballEvents.Infrastructure.csproj" />
 	</ItemGroup>
 
