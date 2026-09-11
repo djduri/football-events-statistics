@@ -2,7 +2,7 @@
 public sealed class TeamStatistics
 {
     public long TeamId { get; private set; }
-    public Team Team { get; private set; }
+    public Team Team { get; private set; } = null!;
     public int MatchesPlayed { get; private set; }
     public int Points { get; private set; }
     public int GoalScored { get; private set; }

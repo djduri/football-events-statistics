@@ -8,7 +8,7 @@ public sealed class Team : Entity
 {
     public string Name { get; private set; }
     public string NormalizedName { get; private set; }
-    public TeamStatistics Statistics { get; private set; }
+    public TeamStatistics Statistics { get; private set; } = null!;
 
     public void ApplyMatchResult(int goalsScored, int goalsConceded)
     {

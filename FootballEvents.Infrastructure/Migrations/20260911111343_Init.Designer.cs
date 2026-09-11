@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootballEvents.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20260911103424_Init")]
+    [Migration("20260911111343_Init")]
     partial class Init
     {
         /// <inheritdoc />

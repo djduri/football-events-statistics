@@ -5,9 +5,9 @@ namespace FootballEvents.Domain.Teams;
 public sealed class MatchRecord : Entity
 {
     public long HomeTeamId { get; private set; }
-    public Team HomeTeam { get; private set; }
+    public Team HomeTeam { get; private set; } = null!;
     public long AwayTeamId { get; private set; }
-    public Team AwayTeam { get; private set; }
+    public Team AwayTeam { get; private set; } = null!;
     public int HomeScore { get; private set; }
     public int AwayScore { get; private set; }
 
