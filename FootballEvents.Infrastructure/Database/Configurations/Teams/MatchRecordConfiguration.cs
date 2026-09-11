@@ -8,7 +8,7 @@ internal class MatchRecordConfiguration : IEntityTypeConfiguration<MatchRecord>
 {
     public void Configure(EntityTypeBuilder<MatchRecord> builder)
     {
-        builder.ToTable("MatchRecords", Schema.Teams);
+        builder.ToTable("MatchRecords");
 
         builder.HasKey(x => x.Id);
 

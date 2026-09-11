@@ -8,7 +8,7 @@ internal class TeamStatisticsConfiguration : IEntityTypeConfiguration<TeamStatis
 {
     public void Configure(EntityTypeBuilder<TeamStatistics> builder)
     {
-        builder.ToTable("TeamStatistics", Schema.Teams);
+        builder.ToTable("TeamStatistics");
 
         builder.HasKey(x => x.TeamId);
     }

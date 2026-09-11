@@ -40,7 +40,7 @@ namespace FootballEvents.Infrastructure.Migrations
 
                     b.HasIndex("HomeTeamId");
 
-                    b.ToTable("MatchRecords", "Teams");
+                    b.ToTable("MatchRecords", (string)null);
                 });
 
             modelBuilder.Entity("FootballEvents.Domain.Teams.Team", b =>
@@ -67,7 +67,7 @@ namespace FootballEvents.Infrastructure.Migrations
                     b.HasIndex("NormalizedName")
                         .IsUnique();
 
-                    b.ToTable("Teams", "Teams");
+                    b.ToTable("Teams", (string)null);
                 });
 
             modelBuilder.Entity("FootballEvents.Domain.Teams.TeamStatistics", b =>
@@ -89,7 +89,7 @@ namespace FootballEvents.Infrastructure.Migrations
 
                     b.HasKey("TeamId");
 
-                    b.ToTable("TeamStatistics", "Teams");
+                    b.ToTable("TeamStatistics", (string)null);
                 });
 
             modelBuilder.Entity("FootballEvents.Domain.Teams.MatchRecord", b =>

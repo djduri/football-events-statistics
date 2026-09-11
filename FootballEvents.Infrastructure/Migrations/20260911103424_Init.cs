@@ -10,12 +10,8 @@ namespace FootballEvents.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.EnsureSchema(
-                name: "Teams");
-
             migrationBuilder.CreateTable(
                 name: "Teams",
-                schema: "Teams",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
@@ -30,7 +26,6 @@ namespace FootballEvents.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "MatchRecords",
-                schema: "Teams",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
@@ -46,14 +41,12 @@ namespace FootballEvents.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_MatchRecords_Teams_AwayTeamId",
                         column: x => x.AwayTeamId,
-                        principalSchema: "Teams",
                         principalTable: "Teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_MatchRecords_Teams_HomeTeamId",
                         column: x => x.HomeTeamId,
-                        principalSchema: "Teams",
                         principalTable: "Teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -61,7 +54,6 @@ namespace FootballEvents.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "TeamStatistics",
-                schema: "Teams",
                 columns: table => new
                 {
                     TeamId = table.Column<long>(type: "INTEGER", nullable: false),
@@ -76,7 +68,6 @@ namespace FootballEvents.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_TeamStatistics_Teams_TeamId",
                         column: x => x.TeamId,
-                        principalSchema: "Teams",
                         principalTable: "Teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -84,26 +75,22 @@ namespace FootballEvents.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_MatchRecords_AwayTeamId",
-                schema: "Teams",
                 table: "MatchRecords",
                 column: "AwayTeamId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MatchRecords_HomeTeamId",
-                schema: "Teams",
                 table: "MatchRecords",
                 column: "HomeTeamId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teams_Name",
-                schema: "Teams",
                 table: "Teams",
                 column: "Name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teams_NormalizedName",
-                schema: "Teams",
                 table: "Teams",
                 column: "NormalizedName",
                 unique: true);
@@ -113,16 +100,13 @@ namespace FootballEvents.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "MatchRecords",
-                schema: "Teams");
+                name: "MatchRecords");
 
             migrationBuilder.DropTable(
-                name: "TeamStatistics",
-                schema: "Teams");
+                name: "TeamStatistics");
 
             migrationBuilder.DropTable(
-                name: "Teams",
-                schema: "Teams");
+                name: "Teams");
         }
     }
 }

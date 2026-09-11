@@ -31,7 +31,6 @@ public static class SwaggerConfiguration
 			app.UseSwaggerUI(config =>
 			{
 				config.SwaggerEndpoint("/swagger/Cms/swagger.json", "Football Events API");
-				//config.SwaggerEndpoint("/swagger/Mobile%20User/swagger.json", "Mobile User");
 			});
 		}
 

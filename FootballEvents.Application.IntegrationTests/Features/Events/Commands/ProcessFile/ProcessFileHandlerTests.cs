@@ -26,10 +26,9 @@ public class ProcessFileHandlerTests
     public async Task Handle_ValidFileContent_ProcessesAllLinesAndReturnsCorrectCount()
     {
         // Given: Valid file content with a match record, an empty line, and a statistics query
-        var fileContent =
-            "{\"home_team\": \"Bayern\", \"away_team\": \"Barcelona\", \"home_score\": 3, \"away_score\": 0}\n" +
-            "\n" + // Empty line to be skipped
-            "{\"teams\": [\"Bayern\"]}";
+        var fileContent = "{\"home_team\": \"Bayern\", \"away_team\": \"Barcelona\", \"home_score\": 3, \"away_score\": 0}\n" +
+                          "\n" + // Empty line to be skipped
+                          "{\"teams\": [\"Bayern\"]}";
 
         using var stream = new MemoryStream(Encoding.UTF8.GetBytes(fileContent));
         var command = new ProcessFileCommand(stream);
@@ -41,14 +40,11 @@ public class ProcessFileHandlerTests
         result.Should().Be(2);
 
         // Verify that CreateMatchRecordCommand was sent for the match record
-        _mediatorMock.Verify(m => m.Send(
-            It.Is<CreateMatchRecordCommand>(c => c.HomeTeam == "Bayern" && c.AwayTeam == "Barcelona" && c.HomeScore == 3 && c.AwayScore == 0),
-            It.IsAny<CancellationToken>()), Times.Once);
+        _mediatorMock.Verify(m => m.Send(It.Is<CreateMatchRecordCommand>(c => c.HomeTeam == "Bayern" && c.AwayTeam == "Barcelona" && c.HomeScore == 3 && c.AwayScore == 0),
+                                         It.IsAny<CancellationToken>()), Times.Once);
 
         // Verify that GetTeamsStatisticsQuery was sent for the statistics request
-        _mediatorMock.Verify(m => m.Send(
-            It.Is<GetTeamsStatisticsQuery>(q => q.Teams.Contains("Bayern")),
-            It.IsAny<CancellationToken>()), Times.Once);
+        _mediatorMock.Verify(m => m.Send(It.Is<GetTeamsStatisticsQuery>(q => q.Teams.Contains("Bayern")),It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]

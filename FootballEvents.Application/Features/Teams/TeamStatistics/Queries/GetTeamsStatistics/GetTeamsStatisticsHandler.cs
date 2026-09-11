@@ -35,9 +35,8 @@ internal sealed class GetTeamsStatisticsHandler : IQueryHandler<GetTeamsStatisti
         var normalizedNames = request.Teams.Select(t => t.ToNormalizedKey()).ToList();
 
         // Retrieve all matching team entities from the database in a single query
-        var teams = await _dbContext.Teams
-            .Where(t => normalizedNames.Contains(t.NormalizedName))
-            .ToListAsync(cancellationToken);
+        var teams = await _dbContext.Teams.Where(t => normalizedNames.Contains(t.NormalizedName))
+                                          .ToListAsync(cancellationToken);
 
         var resultList = new List<TeamStatisticDto>();
         var logParts = new List<string>();
@@ -66,11 +65,10 @@ internal sealed class GetTeamsStatisticsHandler : IQueryHandler<GetTeamsStatisti
             }
 
             // Fetch the recent matches for the team, ordered by ID descending to strictly follow insertion history
-            var recentMatches = await _dbContext.MatchRecords
-                .Where(m => m.HomeTeamId == team.Id || m.AwayTeamId == team.Id)
-                .OrderByDescending(m => m.Id)
-                .Take(RecentMatchesCount)
-                .ToListAsync(cancellationToken);
+            var recentMatches = await _dbContext.MatchRecords.Where(m => m.HomeTeamId == team.Id || m.AwayTeamId == team.Id)
+                                                             .OrderByDescending(m => m.Id)
+                                                             .Take(RecentMatchesCount)
+                                                             .ToListAsync(cancellationToken);
 
             // Compute rolling statistics utilizing the domain service calculator
             var stats = TeamStatisticsCalculator.Calculate(team.Id, recentMatches);

@@ -8,7 +8,7 @@ internal class TeamConfiguration : IEntityTypeConfiguration<Team>
 {
     public void Configure(EntityTypeBuilder<Team> builder)
     {
-        builder.ToTable("Teams", Schema.Teams);
+        builder.ToTable("Teams");
 
         builder.HasKey(x => x.Id);
 

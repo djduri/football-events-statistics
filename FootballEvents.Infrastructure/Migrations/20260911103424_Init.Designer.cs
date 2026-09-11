@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootballEvents.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20260910145651_Init")]
+    [Migration("20260911103424_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -43,7 +43,7 @@ namespace FootballEvents.Infrastructure.Migrations
 
                     b.HasIndex("HomeTeamId");
 
-                    b.ToTable("MatchRecords", "Teams");
+                    b.ToTable("MatchRecords", (string)null);
                 });
 
             modelBuilder.Entity("FootballEvents.Domain.Teams.Team", b =>
@@ -70,7 +70,7 @@ namespace FootballEvents.Infrastructure.Migrations
                     b.HasIndex("NormalizedName")
                         .IsUnique();
 
-                    b.ToTable("Teams", "Teams");
+                    b.ToTable("Teams", (string)null);
                 });
 
             modelBuilder.Entity("FootballEvents.Domain.Teams.TeamStatistics", b =>
@@ -92,7 +92,7 @@ namespace FootballEvents.Infrastructure.Migrations
 
                     b.HasKey("TeamId");
 
-                    b.ToTable("TeamStatistics", "Teams");
+                    b.ToTable("TeamStatistics", (string)null);
                 });
 
             modelBuilder.Entity("FootballEvents.Domain.Teams.MatchRecord", b =>

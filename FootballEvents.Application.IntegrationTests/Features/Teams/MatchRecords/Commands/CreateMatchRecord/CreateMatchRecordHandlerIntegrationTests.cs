@@ -24,12 +24,11 @@ public class CreateMatchRecordHandlerIntegrationTests
         var matchLockService = new MatchLockService();
         var logger = NullLogger<CreateMatchRecordHandler>.Instance;
 
-        var handler = new CreateMatchRecordHandler(
-            matchRecordRepository,
-            teamRepository,
-            unitOfWork,
-            matchLockService,
-            logger);
+        var handler = new CreateMatchRecordHandler(matchRecordRepository,
+                                                   teamRepository,
+                                                   unitOfWork,
+                                                   matchLockService,
+                                                   logger);
 
         var command = new CreateMatchRecordCommand("Bayern", "Barcelona", 3, 0);
 
@@ -40,9 +39,8 @@ public class CreateMatchRecordHandlerIntegrationTests
         result.Should().Be("Bayern 1 3 3 0 Barcelona 1 0 0 3");
 
         // Verify entity state in the in-memory database
-        var bayernInDb = await dbContext.Teams
-            .Include(t => t.Statistics)
-            .FirstOrDefaultAsync(t => t.NormalizedName == "bayern");
+        var bayernInDb = await dbContext.Teams.Include(t => t.Statistics)
+                                              .FirstOrDefaultAsync(t => t.NormalizedName == "bayern");
 
         bayernInDb.Should().NotBeNull();
         bayernInDb.Statistics.MatchesPlayed.Should().Be(1);
@@ -50,15 +48,15 @@ public class CreateMatchRecordHandlerIntegrationTests
         bayernInDb.Statistics.GoalScored.Should().Be(3);
         bayernInDb.Statistics.GoalConceded.Should().Be(0);
 
-        var barcelonaInDb = await dbContext.Teams
-            .Include(t => t.Statistics)
-            .FirstOrDefaultAsync(t => t.NormalizedName == "barcelona");
+        var barcelonaInDb = await dbContext.Teams.Include(t => t.Statistics)
+                                                 .FirstOrDefaultAsync(t => t.NormalizedName == "barcelona");
 
         barcelonaInDb.Should().NotBeNull();
         barcelonaInDb.Statistics.MatchesPlayed.Should().Be(1);
         barcelonaInDb.Statistics.Points.Should().Be(0);
 
         var matchInDb = await dbContext.MatchRecords.FirstOrDefaultAsync();
+
         matchInDb.Should().NotBeNull();
         matchInDb.HomeScore.Should().Be(3);
         matchInDb.AwayScore.Should().Be(0);
@@ -76,12 +74,11 @@ public class CreateMatchRecordHandlerIntegrationTests
         var matchLockService = new MatchLockService();
         var logger = NullLogger<CreateMatchRecordHandler>.Instance;
 
-        var handler = new CreateMatchRecordHandler(
-            matchRecordRepository,
-            teamRepository,
-            unitOfWork,
-            matchLockService,
-            logger);
+        var handler = new CreateMatchRecordHandler(matchRecordRepository,
+                                                   teamRepository,
+                                                   unitOfWork,
+                                                   matchLockService,
+                                                   logger);
 
         // Match 1: Bayern vs Barcelona (3:0)
         var command1 = new CreateMatchRecordCommand("Bayern", "Barcelona", 3, 0);
@@ -96,9 +93,8 @@ public class CreateMatchRecordHandlerIntegrationTests
         result2.Should().Be("PSG 1 1 3 3 Bayern 2 4 6 3");
 
         // Verify the final state of Bayern in the database
-        var bayernInDb = await dbContext.Teams
-            .Include(t => t.Statistics)
-            .FirstOrDefaultAsync(t => t.NormalizedName == "bayern");
+        var bayernInDb = await dbContext.Teams.Include(t => t.Statistics)
+                                              .FirstOrDefaultAsync(t => t.NormalizedName == "bayern");
 
         bayernInDb.Should().NotBeNull();
         bayernInDb.Statistics.MatchesPlayed.Should().Be(2);

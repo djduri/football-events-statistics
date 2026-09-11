@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using FootballEvents.Domain.Teams;
+using FootballEvents.Domain.Teams.Services;
 
 namespace FootballEvents.Domain.UnitTests.Teams;
 
@@ -18,6 +19,6 @@ public class TeamStatisticsTests
         team.Statistics.MatchesPlayed.Should().Be(1);
         team.Statistics.GoalScored.Should().Be(3);
         team.Statistics.GoalConceded.Should().Be(1);
-        team.Statistics.Points.Should().Be(3);
+        team.Statistics.Points.Should().Be(MatchRules.WinPoints);
     }
 }

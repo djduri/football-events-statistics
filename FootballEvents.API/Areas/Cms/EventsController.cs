@@ -21,7 +21,7 @@ public class EventsController: CmsController
     public async Task<ActionResult<long>> ProcessFile(IFormFile file, CancellationToken cancellationToken)
     {
         if (file is null || file.Length == 0)
-            return new BadRequestObjectResult("No file was uploaded or the file is empty.");
+            return BadRequest("No file was uploaded or the file is empty.");
 
         using var stream = file.OpenReadStream();
 
